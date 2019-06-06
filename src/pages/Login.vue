@@ -7,11 +7,16 @@
     label-width="100px"
     class="demo-ruleForm"
   >
-    <el-form-item label="帐号" prop="pass" >
+    <el-form-item label="帐号" prop="pass">
       <el-input type="text" v-model="ruleForm2.pass" auto-complete="off" style="width:300px"></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" style="width:300px"></el-input>
+      <el-input
+        type="password"
+        v-model="ruleForm2.checkPass"
+        auto-complete="off"
+        style="width:300px"
+      ></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm('ruleForm2')" id="login">登录</el-button>
@@ -19,23 +24,23 @@
   </el-form>
 </template>
 <style>
-*{
-  margin: 0;
-  padding: 0;
-}
-body{
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  body {
     background: url("../assets/325361.jpg") no-repeat;
-}
-.demo-ruleForm{
-  width: 500px;
-  margin: 300px auto;
-}
-#login{
-  width: 300px;
-}
-.el-form-item__label{
-  color: #fff !important;
-}
+  }
+  .demo-ruleForm {
+    width: 500px;
+    margin: 300px auto;
+  }
+  #login {
+    width: 300px;
+  }
+  .el-form-item__label {
+    color: #fff !important;
+  }
 </style>
 <script>
   export default {
@@ -51,7 +56,6 @@ body{
             if (value < 18) {
               callback(new Error("必须年满18岁"));
             } else {
-             
             }
           }
         }, 1000);
