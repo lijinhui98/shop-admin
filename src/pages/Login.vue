@@ -24,7 +24,7 @@
     bottom: 0;
     height: 100%;
     width: 100%;
-    background: url("../assets/325361.jpg") no-repeat;
+    background: url("../assets/325361.jpg") no-repeat center top;
   }
   .demo-ruleForm {
     width: 500px;
@@ -64,24 +64,27 @@
           uname: this.form.username,
           upwd: this.form.password
         };
-
-        this.$axios({
-          // 请求路径
-          url: "http://localhost:8899/admin/account/login",
-          // 请求方式
-          method: "POST",
-          // 数据
-          data,
-          // 处理session跨域
-          withCredentials: true,
-        }).then(res => {
-          const { status, message } = res.data;
-          if (status == 0) {
-            this.$router.push("/");
-          }
-          if (status == 1) {
-            this.$message.error(message);
-            return;
+        this.$refs.form.validate(valid => {
+          if (valid) {
+            this.$axios({
+              // 请求路径
+              url: "http://localhost:8899/admin/account/login",
+              // 请求方式
+              method: "POST",
+              // 数据
+              data,
+              // 处理session跨域
+              withCredentials: true
+            }).then(res => {
+              const { status, message } = res.data;
+              if (status == 0) {
+                this.$router.push("/");
+              }
+              if (status == 1) {
+                this.$message.error(message);
+                return;
+              }
+            });
           }
         });
       }
