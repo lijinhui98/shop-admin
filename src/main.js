@@ -3,7 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios'
 import Login from './pages/Login.vue'
-
+import Home from './pages/Home.vue'
 // 1 引入element-ui
 import ElementUI from 'element-ui'
 // 引入element样式
@@ -14,6 +14,7 @@ Vue.use(VueRouter)
 
 // 配置路由
 const routes = [
+  {path: '/', component: Home},
   {path:'/login',component:Login}
 ];
 

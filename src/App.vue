@@ -21,15 +21,17 @@
       // }).then(res => {
       //   console.log(res);
       // });
-      this.$axios({
-        url: "https://api.github.com/users",
-        method: "GET"
-      }).then(res => {
-        console.log(res);
-      });
+
     }
   };
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
+}
+ul,li,ol{
+  list-style: none;
+}
 </style>
