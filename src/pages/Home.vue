@@ -10,8 +10,8 @@
         </el-header>
         <!-- 内容 -->
         <el-main>
-          <Mianbao></Mianbao>
-          admin
+          <Mianbao></Mianbao> 
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -22,6 +22,7 @@
   import Header from "../components/Header.vue";
   import Mianbao from "../components/Mianbao.vue";
   import Menu from "../components/Menu.vue";
+
   export default {
     components: {
       Header,
@@ -42,4 +43,9 @@
 </script>
 
 <style>
+.el-breadcrumb{
+  height: 30px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 10px;
+}
 </style>

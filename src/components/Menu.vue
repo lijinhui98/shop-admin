@@ -1,12 +1,12 @@
 <template>
   <el-aside width="auto">
     <el-menu
-      default-active="1"
+      default-active="1-1"
       class="el-menu-vertical-demo"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
-      :collapse='isShow'
+      :collapse="isShow"
     >
       <el-submenu index="1">
         <template slot="title">
@@ -14,10 +14,14 @@
           <span>购物商城</span>
         </template>
         <el-menu-item index="1-1">
-          <template slot="title">商品管理</template>
+          <template slot="title">
+            <router-link to="/home/goods-list">商品管理</router-link>
+          </template>
         </el-menu-item>
         <el-menu-item index="1-2">
-          <template slot="title">栏目管理</template>
+          <template slot="title">
+            <router-link to="#">栏目管理</router-link>
+          </template>
         </el-menu-item>
       </el-submenu>
     </el-menu>
@@ -25,9 +29,8 @@
 </template>
 
 <script>
-
   export default {
-      props:['isShow']
+    props: ["isShow"]
   };
 </script>
 
@@ -39,7 +42,7 @@
     width: 200px;
     height: 100%;
   }
-    .el-header,
+  .el-header,
   .el-footer {
     background-color: #b3c0d1;
     color: #333;
@@ -50,15 +53,12 @@
   .el-aside {
     background-color: #d3dce6;
     color: #333;
-    text-align: center;
     line-height: 200px;
   }
 
   .el-main {
     background-color: #e9eef3;
     color: #333;
-    text-align: center;
-    line-height: 160px;
   }
 
   .box {
@@ -75,4 +75,11 @@
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
+     .el-menu-vertical-demo a{
+       display: block;
+        width: 200px;
+        height: 100%;
+        color:inherit;
+        text-decoration: none;
+    }
 </style>
