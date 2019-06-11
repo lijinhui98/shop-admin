@@ -34,10 +34,8 @@
             </el-row>
           </template>
         </el-table-column>
-        <el-table-column prop="categoryname" label="类型" width="120">
-        </el-table-column>
-        <el-table-column prop="sell_price" label="价格" show-overflow-tooltip>
-        </el-table-column>
+        <el-table-column prop="categoryname" label="类型" width="120"></el-table-column>
+        <el-table-column prop="sell_price" label="价格" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -55,7 +53,7 @@
         :page-sizes="[5, 10, 15, 20]"
         :page-size="5"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400"
+        :total="total"
       ></el-pagination>
     </div>
   </div>
@@ -90,27 +88,45 @@
       return {
         tableData: [],
         pageIndex: 1,
-        pageSize:5,
+        pageSize: 5,
         searchValue: ""
       };
     },
     methods: {
+      // 商品封装
       getList() {
         // pageIndex: 当前的页面，会变化
         // pageSize：数据条数，会变化
         // searchValue：搜索关键字
         this.$axios({
-          url: `http://localhost:8899/admin/goods/getlist?pageIndex=${this.pageIndex}&pageSize=${this.pageSize}&searchvalue=${
-            this.searchValue
-          }`,
+          url: `http://localhost:8899/admin/goods/getlist?pageIndex=${
+            this.pageIndex
+          }&pageSize=${this.pageSize}&searchvalue=${this.searchValue}`,
           method: "GET"
         }).then(res => {
           const data = res.data;
-          console.log(data);
           // 商品列表的数据
           this.tableData = data.message;
           // 总条数
           this.total = data.totalcount;
+        });
+      },
+      // 删除封装
+      getDel(id) {
+        // 调用删除商品的接口
+        this.$axios({
+          url: `http://localhost:8899/admin/goods/del/${id}`,
+          method: "GET"
+        }).then(res => {
+          const { message, status } = res.data;
+          // 删除成功
+          if (status === 0) {
+            this.$message.success(message);
+            // 请求商品列表数据
+            this.getList();
+          } else {
+            this.$message.error(message);
+          }
         });
       },
       toggleSelection(rows) {
@@ -145,41 +161,13 @@
           return v.id;
         });
         const ids = arr.join(",");
-        this.$axios({
-          url: `http://localhost:8899/admin/goods/del/${ids}`,
-          method: "GET"
-        }).then(res => {
-          const { message, status } = res.data;
-          // 删除成功
-          if (status === 0) {
-            this.$message.success(message);
-            // 请求商品列表数据
-            this.getList();
-          } else {
-            this.$message.error(message);
-          }
-        });
+        this.getDel(ids);
       },
       // 删除商品
       handleDelete(goods) {
         // 获取到商品的id
         const id = goods.id;
-
-        // 调用删除商品的接口
-        this.$axios({
-          url: `http://localhost:8899/admin/goods/del/${id}`,
-          method: "GET"
-        }).then(res => {
-          const { message, status } = res.data;
-          // 删除成功
-          if (status === 0) {
-            this.$message.success(message);
-            // 请求商品列表数据
-            this.getList();
-          } else {
-            this.$message.error(message);
-          }
-        });
+        this.getDel(id);
       },
       // 处理搜索
       handleSearch() {
