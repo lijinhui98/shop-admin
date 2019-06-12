@@ -5,7 +5,9 @@
       <el-row type="flex" justify="space-between">
         <!-- 左侧按钮 -->
         <div>
+        <router-link to="/home/goods-add" class="add">
           <el-button>新增</el-button>
+        </router-link>
           <el-button type="danger" @click="handleDelectMore">删除</el-button>
         </div>
         <!-- 右侧搜索框 -->
@@ -53,12 +55,12 @@
         :page-sizes="[5, 10, 15, 20]"
         :page-size="5"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
+        :total= total
       ></el-pagination>
     </div>
   </div>
 </template>
-<style>
+<style column>
   .page {
     margin-top: 20px;
   }
@@ -81,6 +83,9 @@
   .search-box {
     margin-bottom: 20px;
   }
+  .add{
+    margin-right: 5px;
+  }
 </style>
 <script>
   export default {
@@ -89,7 +94,8 @@
         tableData: [],
         pageIndex: 1,
         pageSize: 5,
-        searchValue: ""
+        searchValue: "",
+        total:0
       };
     },
     methods: {
@@ -129,15 +135,7 @@
           }
         });
       },
-      toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
+      // 多项删除数据获取
       handleSelectionChange(val) {
         this.selectGoods = val;
       },
@@ -156,6 +154,7 @@
         // 重新发起请求
         this.getList();
       },
+      // 多项删除
       handleDelectMore() {
         const arr = this.selectGoods.map(v => {
           return v.id;
@@ -173,6 +172,10 @@
       handleSearch() {
         // 发起请求 ，赋值searchValue
         this.getList();
+      },
+      // 编辑
+      handleEdit(goods){
+        this.$router.push("/home/goods-edit/" + goods.id)
       }
     },
     mounted() {

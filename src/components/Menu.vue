@@ -20,7 +20,7 @@
         </el-menu-item>
         <el-menu-item index="1-2">
           <template slot="title">
-            <router-link to="#">栏目管理</router-link>
+            <router-link to="/home/category-list">栏目管理</router-link>
           </template>
         </el-menu-item>
       </el-submenu>

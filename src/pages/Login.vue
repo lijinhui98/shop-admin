@@ -13,7 +13,7 @@
     </el-form>
   </div>
 </template>
-<style scopedf>
+<style scoped>
   * {
     margin: 0;
     padding: 0;
