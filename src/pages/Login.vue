@@ -77,6 +77,10 @@
               withCredentials: true
             }).then(res => {
               const { status, message } = res.data;
+               // $store下的方法commit设置仓库的数据
+               // commit方法调用仓库中mutations的方法，第一个参数是方法名
+               // 第二个参数就是传递的数据对象
+               this.$store.commit("setUser",message)
               if (status == 0) {
                 this.$router.push("/");
               }

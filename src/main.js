@@ -13,13 +13,14 @@ import Category from './pages/CategoryList.vue'
 import ElementUI from 'element-ui'
 // 引入element样式
 import 'element-ui/lib/theme-chalk/index.css'
+// 导入vuex的store
+import store from "./store"
 // 2 注册组件
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 
 // 配置路由
-const routes = [
-  {
+const routes = [{
     path: '/',
     redirect: '/home/goods-list'
   },
@@ -47,7 +48,7 @@ const routes = [
       },
       {
         path: 'category-list',
-        component:Category
+        component: Category
       },
     ]
   },
@@ -57,11 +58,38 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+// 路由守卫 判断是否登录
+router.beforeEach((to, from, next) => {
+  axios({
+    url: "http://localhost:8899/admin/account/islogin",
+    method: "GET",
+    withCredentials: true
+  }).then(res => {
+    const { code } = res.data
+    console.log(res.data);
+    if (to.path == '/login') {
+      if (code == "logined") {
+        next("/home/goods-list")
+      } else {
+        next()
+      }
+    } else {
+      if (code == "logined") {
+        next()
+      } else {
+        next('/login')
+      }
+    }
+  });
+});
 // 绑定到原型
 Vue.prototype.$axios = axios
 
 new Vue({
   render: h => h(App),
-  // 挂载实例
-  router
+  // 挂载路由
+  router,
+  // 仓库对象
+  store
 }).$mount('#app')
+
