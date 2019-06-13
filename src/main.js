@@ -22,7 +22,8 @@ Vue.use(VueRouter)
 // 配置路由
 const routes = [{
     path: '/',
-    redirect: '/home/goods-list'
+  redirect: '/home/goods-list',
+  meta: "商品列表"
   },
   {
     path: '/login',
@@ -31,6 +32,7 @@ const routes = [{
   {
     path: '/home',
     component: Home,
+    meta: "首页",
     children: [{
         path: 'goods-list',
         component: Goodslist,
@@ -48,7 +50,8 @@ const routes = [{
       },
       {
         path: 'category-list',
-        component: Category
+        component: Category,
+        meta: "栏目管理"
       },
     ]
   },
